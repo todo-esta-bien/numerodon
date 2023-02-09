@@ -97,6 +97,25 @@ describe("Testing TantricProfile", () => {
     expect(tantricProfile.path).toBe(22);
   });
 
+  it("Should work with 2/09/1966", () => {
+    // Act
+    const tantricProfile: TantricProfile = new TantricProfile({
+      day: 2,
+      month: 9,
+      year: 1966,
+    });
+
+    // Assert
+    expect(tantricProfile.soul).toBe(2);
+    expect(tantricProfile.karma).toBe(9);
+    expect(tantricProfile.divineGift).toBe(3);
+    expect(tantricProfile.lastLife).toBe(22);
+    expect(tantricProfile.path).toBe(6);
+    // If we're looking for a 33 result, we should be concatenating the numbers,
+    // instead of adding them individually.
+    // expect(tantricProfile.path).toBe(33);
+  });
+
   it("Should work with 16/11/1957", () => {
     // Act
     const tantricProfile: TantricProfile = new TantricProfile({

@@ -30,6 +30,10 @@ export class TantricProfile {
     this.karma = reduceNumberDigits(month, this.tantricSumOptions);
     this.divineGift = reduceNumberDigits(year % 100, this.tantricSumOptions); // Only last two digits from year
     this.lastLife = reduceNumberDigits(year, this.tantricSumOptions);
+    // We're adding, and not concatenating, because in order to be a 33 you need to be super spiritual, and
+    // there's a very low chance that it could be happening.
+    // If for some reason we want to get back to the 33 calculations, uncomment this line:
+    // this.path = reduceNumberDigits(+`${day}${month}${year}`, this.tantricSumOptions);
     this.path = reduceNumberDigits(day + month + year, this.tantricSumOptions);
   }
 }
