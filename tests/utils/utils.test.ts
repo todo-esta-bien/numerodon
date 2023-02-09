@@ -1,4 +1,4 @@
-import { reduceNumberDigits } from "../src/utils/utils";
+import { reduceNumberDigits } from "../../src/utils/utils";
 
 describe("Testing Utils", () => {
   it.each([
