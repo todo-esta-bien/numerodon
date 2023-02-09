@@ -80,4 +80,36 @@ describe("Testing TantricProfile", () => {
     expect(tantricProfile.lastLife).toBe(9);
     expect(tantricProfile.path).toBe(10);
   });
+
+  it("Should work with 5/11/1959", () => {
+    // Act
+    const tantricProfile: TantricProfile = new TantricProfile({
+      day: 5,
+      month: 11,
+      year: 1959,
+    });
+
+    // Assert
+    expect(tantricProfile.soul).toBe(5);
+    expect(tantricProfile.karma).toBe(11);
+    expect(tantricProfile.divineGift).toBe(5);
+    expect(tantricProfile.lastLife).toBe(6);
+    expect(tantricProfile.path).toBe(22);
+  });
+
+  it("Should work with 16/11/1957", () => {
+    // Act
+    const tantricProfile: TantricProfile = new TantricProfile({
+      day: 16,
+      month: 11,
+      year: 1957,
+    });
+
+    // Assert
+    expect(tantricProfile.soul).toBe(7);
+    expect(tantricProfile.karma).toBe(11);
+    expect(tantricProfile.divineGift).toBe(3);
+    expect(tantricProfile.lastLife).toBe(22);
+    expect(tantricProfile.path).toBe(22);
+  });
 });
