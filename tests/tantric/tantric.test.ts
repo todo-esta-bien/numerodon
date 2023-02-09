@@ -48,4 +48,20 @@ describe("Testing TantricProfile", () => {
     expect(tantricProfile.lastLife).toBe(11);
     expect(tantricProfile.path).toBe(5);
   });
+
+  it("Should work with 11/11/1974", () => {
+    // Act
+    const tantricProfile: TantricProfile = new TantricProfile({
+      day: 11,
+      month: 11,
+      year: 1974,
+    });
+
+    // Assert
+    expect(tantricProfile.soul).toBe(11);
+    expect(tantricProfile.karma).toBe(11);
+    expect(tantricProfile.divineGift).toBe(11);
+    expect(tantricProfile.lastLife).toBe(3);
+    expect(tantricProfile.path).toBe(7);
+  });
 });
