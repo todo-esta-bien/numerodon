@@ -1,4 +1,4 @@
-.husky
-src
-tests
+.husky/
+src/
+tests/
 tsconfig.json
