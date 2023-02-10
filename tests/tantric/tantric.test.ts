@@ -1,4 +1,4 @@
-import { TantricProfile } from "../../src/tantric/tantric";
+import { TantricProfile } from "src/tantric/tantric";
 
 describe("Testing TantricProfile", () => {
   it("Should work with 27/12/1994", () => {
