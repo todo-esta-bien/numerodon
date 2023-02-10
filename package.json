@@ -1,8 +1,8 @@
 {
   "name": "@todo-esta-bien/numerodon",
   "version": "0.10.0",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
   "description": "Library to calculate numeric values from names or dates",
   "scripts": {
     "build": "tsc",
