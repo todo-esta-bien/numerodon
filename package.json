@@ -1,6 +1,6 @@
 {
   "name": "@todo-esta-bien/numerodon",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "description": "Library to calculate numeric values from names or dates",
