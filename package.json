@@ -6,6 +6,7 @@
   "description": "Library to calculate numeric values from names or dates",
   "scripts": {
     "build": "tsc",
+    "build:force": "rm -rf build && tsc",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "test:verbose": "npm test -- --verbose",
