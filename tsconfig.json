@@ -1,11 +1,10 @@
 {
-  "include": ["src/**/*", "tests/**/*"],
+  "include": ["src"],
   "exclude": ["node_modules/*"],
   "compilerOptions": {
-    "baseUrl": ".",
-    "rootDir": ".",
+    "baseUrl": "./",
     "paths": {
-      "src/*": ["src/*"]
+      "src/*": ["./src/*"]
     },
     "types": ["jest"],
     "outDir": "build",
