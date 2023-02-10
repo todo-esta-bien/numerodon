@@ -43,7 +43,9 @@
   "bugs": {
     "url": "https://github.com/todo-esta-bien/numerodon/issues"
   },
-  "files": "/build",
+  "files": [
+    "/build"
+  ],
   "homepage": "https://github.com/todo-esta-bien/numerodon#readme",
   "devDependencies": {
     "@types/jest": "^28.1.8",
