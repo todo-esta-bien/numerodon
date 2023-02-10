@@ -7,9 +7,9 @@
       "src/*": ["./src/*"]
     },
     "types": ["jest"],
-    "outDir": "build",
     "target": "es2022",
     "module": "es2022",
+    "declarationDir": "dist/declarations",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "declaration": true,
