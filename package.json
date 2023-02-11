@@ -46,7 +46,8 @@
     "url": "https://github.com/todo-esta-bien/numerodon/issues"
   },
   "files": [
-    "/dist"
+    "/dist",
+    "!/dist/types"
   ],
   "homepage": "https://github.com/todo-esta-bien/numerodon#readme",
   "devDependencies": {
