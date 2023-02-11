@@ -1,3 +1,3 @@
-export { karmicTask } from "src/pythagorean/lifeLine";
-export { reduceNumberDigits } from "src/utils/utils";
-export { TantricProfile } from "src/tantric/tantric";
+export { karmicTask } from "./pythagorean/lifeLine";
+export { reduceNumberDigits } from "./utils/utils";
+export { TantricProfile } from "./tantric/tantric";

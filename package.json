@@ -3,7 +3,7 @@
   "version": "0.13.0",
   "type": "module",
   "main": "dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/index.d.ts",
   "description": "Library to calculate numeric values from names or dates",
   "scripts": {
     "build": "rollup -c",
@@ -46,7 +46,8 @@
     "url": "https://github.com/todo-esta-bien/numerodon/issues"
   },
   "files": [
-    "/dist"
+    "/dist",
+    "!/dist/types"
   ],
   "homepage": "https://github.com/todo-esta-bien/numerodon#readme",
   "devDependencies": {
@@ -55,6 +56,7 @@
     "husky": "^8.0.0",
     "jest": "^28.1.3",
     "rollup": "^3.14.0",
+    "rollup-plugin-dts": "^5.1.1",
     "ts-jest": "^28.0.8",
     "tslib": "^2.5.0",
     "typescript": "^4.7.4"
