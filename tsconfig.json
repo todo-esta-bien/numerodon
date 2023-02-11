@@ -9,7 +9,7 @@
     "types": ["jest"],
     "target": "es2022",
     "module": "es2022",
-    "declarationDir": "dist/declarations",
+    "declarationDir": "dist/types",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "declaration": true,

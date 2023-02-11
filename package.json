@@ -1,12 +1,13 @@
 {
   "name": "@todo-esta-bien/numerodon",
   "version": "0.8.0",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "description": "Library to calculate numeric values from names or dates",
   "scripts": {
-    "build": "tsc && rollup -c rollup.config.ts --configPlugin typescript",
-    "build:force": "rm -rf build && npm run build",
+    "build": "tsc && rollup -c",
+    "build:force": "rm -rf dist dist && npm run build",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "test:verbose": "npm test -- --verbose",
@@ -45,8 +46,8 @@
     "url": "https://github.com/todo-esta-bien/numerodon/issues"
   },
   "files": [
-    "/build",
-    "!/build/tests"
+    "/dist",
+    "!/dist/tests"
   ],
   "homepage": "https://github.com/todo-esta-bien/numerodon#readme",
   "devDependencies": {
