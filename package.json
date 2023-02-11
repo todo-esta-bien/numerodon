@@ -51,7 +51,6 @@
   ],
   "homepage": "https://github.com/todo-esta-bien/numerodon#readme",
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-typescript": "^11.0.0",
     "@types/jest": "^28.1.8",
     "husky": "^8.0.0",
