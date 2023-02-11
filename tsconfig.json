@@ -1,16 +1,16 @@
 {
-  "include": ["src/**/*"],
-  "exclude": ["node_modules/*", "tests/*"],
+  "include": ["src"],
+  "exclude": ["node_modules/*"],
   "compilerOptions": {
-    "baseUrl": ".",
-    "rootDir": ".",
+    "baseUrl": "./",
     "paths": {
-      "src/*": ["src/*"]
+      "src/*": ["./src/*"]
     },
     "types": ["jest"],
-    "outDir": "build",
     "target": "es2022",
-    "module": "CommonJS",
+    "module": "es2022",
+    "outDir": "dist",
+    "declarationDir": "dist/types",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "declaration": true,
