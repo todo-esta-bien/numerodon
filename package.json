@@ -2,8 +2,8 @@
   "name": "@todo-esta-bien/numerodon",
   "version": "0.11.0",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "types": "types/index.d.ts",
   "description": "Library to calculate numeric values from names or dates",
   "scripts": {
     "build": "rollup -c",
