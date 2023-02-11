@@ -1,19 +1,25 @@
 import typescript from "@rollup/plugin-typescript";
-import dts from "rollup-plugin-dts";
+import terser from "@rollup/plugin-terser";
 
-const config = [
+const plugins = [typescript(), terser()];
+
+export default [
   {
     input: "src/index.ts",
     output: {
       dir: "dist",
+      format: "es",
+      sourcemap: true,
     },
-    plugins: [typescript()],
+    plugins,
   },
   {
-    input: "./dist/types/index.d.ts",
-    output: [{ file: "dist/index.d.ts", format: "es" }],
-    plugins: [dts()],
+    input: "src/index.ts",
+    output: {
+      file: "dist/index.min.js",
+      format: "es",
+      sourcemap: true,
+    },
+    plugins,
   },
 ];
-
-export default config;
