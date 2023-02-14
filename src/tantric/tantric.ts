@@ -1,6 +1,6 @@
 import { reduceNumberDigits } from "../utils";
 
-interface ITantricProfileConstructor {
+export interface ITantricProfileConstructor {
   day: number;
   month: number;
   year: number;
