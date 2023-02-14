@@ -1,4 +1,4 @@
-import { reduceNumberDigits } from "../utils/utils";
+import { reduceNumberDigits } from "../utils";
 
 interface ITantricProfileConstructor {
   day: number;
