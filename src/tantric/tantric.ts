@@ -1,4 +1,4 @@
-import { reduceNumberDigits } from "../utils";
+import { reduceNumberDigits, ReduceNumberDigitsAttrs } from "../utils";
 
 export interface ITantricProfileConstructor {
   day: number;
@@ -17,7 +17,7 @@ export class TantricProfile {
   public readonly lastLife: number;
   public readonly path: number;
 
-  public readonly tantricSumOptions = {
+  public readonly tantricSumOptions: ReduceNumberDigitsAttrs = {
     sumRecursively: true,
     stopNumbers: [10, 11, 22, 33, 44],
   };

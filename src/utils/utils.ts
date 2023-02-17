@@ -1,6 +1,6 @@
 const VOWELS = ["a", "e", "i", "o", "u"];
 
-interface ReduceNumberDigitsAttrs {
+export interface ReduceNumberDigitsAttrs {
   sumRecursively?: boolean;
   stopNumbers?: number[];
 }
