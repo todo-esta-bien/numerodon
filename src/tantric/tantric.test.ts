@@ -2,10 +2,7 @@ import { TantricProfile, ITantricProfileConstructor } from "./tantric";
 
 type TestCase = {
   birthday: ITantricProfileConstructor;
-  expectedTantricProfile: Omit<
-    TantricProfile,
-    "day" | "month" | "year" | "tantricSumOptions"
-  >;
+  expectedTantricProfile: Omit<TantricProfile, "day" | "month" | "year" | "tantricSumOptions">;
 };
 
 const testCases: TestCase[] = [
@@ -127,24 +124,21 @@ const testCases: TestCase[] = [
 ];
 
 describe("Testing TantricProfile", () => {
-  it.each(testCases)(
-    "TantricProfile($birthday)",
-    ({ birthday, expectedTantricProfile }) => {
-      // Act
-      const tantricProfile: TantricProfile = new TantricProfile({
-        ...birthday,
-      });
+  it.each(testCases)("TantricProfile($birthday)", ({ birthday, expectedTantricProfile }) => {
+    // Act
+    const tantricProfile: TantricProfile = new TantricProfile({
+      ...birthday,
+    });
 
-      // Assert
-      expect(tantricProfile.soul).toBe(expectedTantricProfile.soul);
-      expect(tantricProfile.karma).toBe(expectedTantricProfile.karma);
-      expect(tantricProfile.divineGift).toBe(expectedTantricProfile.divineGift);
-      expect(tantricProfile.lastLife).toBe(expectedTantricProfile.lastLife);
-      expect(tantricProfile.path).toBe(expectedTantricProfile.path);
+    // Assert
+    expect(tantricProfile.soul).toBe(expectedTantricProfile.soul);
+    expect(tantricProfile.karma).toBe(expectedTantricProfile.karma);
+    expect(tantricProfile.divineGift).toBe(expectedTantricProfile.divineGift);
+    expect(tantricProfile.lastLife).toBe(expectedTantricProfile.lastLife);
+    expect(tantricProfile.path).toBe(expectedTantricProfile.path);
 
-      expect(tantricProfile.day).toBe(birthday.day);
-      expect(tantricProfile.month).toBe(birthday.month);
-      expect(tantricProfile.year).toBe(birthday.year);
-    }
-  );
+    expect(tantricProfile.day).toBe(birthday.day);
+    expect(tantricProfile.month).toBe(birthday.month);
+    expect(tantricProfile.year).toBe(birthday.year);
+  });
 });

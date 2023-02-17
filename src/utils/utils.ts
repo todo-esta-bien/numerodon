@@ -24,9 +24,7 @@ export const reduceNumberDigits = (
     .map((i) => +i) // e.g. [4, 2, 1]
     .reduce((carr, el) => carr + el); // e.g. 4 + 3 + 1
 
-  return result < 10 || !sumRecursively
-    ? result
-    : reduceNumberDigits(result, { sumRecursively, stopNumbers });
+  return result < 10 || !sumRecursively ? result : reduceNumberDigits(result, { sumRecursively, stopNumbers });
 };
 
 export const getLetterValue = (letter: string): number => {
@@ -43,11 +41,15 @@ export const getLetterValue = (letter: string): number => {
   };
 
   if (letter.length > 1) return -1;
-  const [_, value] = Object.entries(letterNumberMap).find(([key, _]) =>
-    key.includes(letter)
-  ) || [null, -1];
+  const [_, value] = Object.entries(letterNumberMap).find(([key, _]) => key.includes(letter)) || [null, -1];
   return value;
 };
+
+export const cleanString = (str: string): string =>
+  str // e.g. 'María Rodríguez'
+    .toLowerCase() // e.g. 'maría rodríguez'
+    .normalize("NFD") // e.g. 'mar´ia rodr´iguez'
+    .replace(/\p{Diacritic}/gu, ""); // e.g. 'maria rodriguez'
 
 export const getLetterSumFromWord = (
   word: string,
@@ -111,8 +113,23 @@ export const getLetterSumFromWord = (
   };
 };
 
-export const getLetterSumFromString = (str: string) => {
-  // TODO: Implement this
-  // TODO: Clean accents, punctuation and all of that stuff
-  const words = str.split(" ");
+export const getLetterSumFromString = (
+  str: string,
+  reduceNumberAttrs: ReduceNumberDigitsAttrs = {}
+): LetterSumResult => {
+  const addedResult: LetterSumResult = cleanString(str) // e.g. 'María Rodríguez' -> 'maria rodriguez'
+    .split(" ") // e.g. ['maria', 'rodriguez']
+    .map((word: string) => getLetterSumFromWord(word, reduceNumberAttrs)) // e.g. [{vowelSum...}, {vowelSum...}]
+    .reduce((prevResult: LetterSumResult, currentResult: LetterSumResult) => ({
+      // e.g. {vowelSum...}
+      vowelSum: prevResult.vowelSum + currentResult.vowelSum,
+      consonantSum: prevResult.consonantSum + currentResult.consonantSum,
+      totalSum: prevResult.totalSum + currentResult.totalSum,
+    }));
+
+  return {
+    vowelSum: reduceNumberDigits(addedResult.vowelSum, reduceNumberAttrs),
+    consonantSum: reduceNumberDigits(addedResult.consonantSum, reduceNumberAttrs),
+    totalSum: reduceNumberDigits(addedResult.totalSum, reduceNumberAttrs),
+  };
 };

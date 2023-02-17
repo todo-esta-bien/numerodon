@@ -2,7 +2,9 @@ import {
   getLetterValue,
   getLetterSumFromWord,
   reduceNumberDigits,
-  LetterSumResult,
+  type LetterSumResult,
+  cleanString,
+  getLetterSumFromString,
 } from "./utils";
 
 describe("Testing reduceNumberDigits", () => {
@@ -16,11 +18,20 @@ describe("Testing reduceNumberDigits", () => {
   ])(
     "Should sum all the digit from '%s/%s'. Recursively: %s",
     (number: number, expectedResult: Number, sumRecursively: boolean) => {
-      expect(reduceNumberDigits(number, { sumRecursively })).toEqual(
-        expectedResult
-      );
+      expect(reduceNumberDigits(number, { sumRecursively })).toEqual(expectedResult);
     }
   );
+});
+
+describe("Testing cleanString", () => {
+  it.each([
+    ["María Rodríguez", "maria rodriguez"],
+    ["Bâillement SOLFÈGE", "baillement solfege"],
+    ["BâillementSOLFÈGE", "baillementsolfege"],
+    ["EMBLÈME", "embleme"],
+  ])("should go form %s to %s", (original: string, expected: string) => {
+    expect(cleanString(original)).toEqual(expected);
+  });
 });
 
 describe("Testing getLetterValue", () => {
@@ -53,12 +64,9 @@ describe("Testing getLetterValue", () => {
     ["z", 8],
     ["ñ", -1],
     ["hola", -1],
-  ])(
-    "Should get the value of %s = %s",
-    (letter: string, expectedValue: number) => {
-      expect(getLetterValue(letter)).toEqual(expectedValue);
-    }
-  );
+  ])("Should get the value of %s = %s", (letter: string, expectedValue: number) => {
+    expect(getLetterValue(letter)).toEqual(expectedValue);
+  });
 });
 
 describe("Testing getLetterSumFromWord", () => {
@@ -69,15 +77,27 @@ describe("Testing getLetterSumFromWord", () => {
     ["loyola", { vowelSum: 4, consonantSum: 4, totalSum: 8 }],
     ["monroy", { vowelSum: 1, consonantSum: 9, totalSum: 1 }],
     ["yyani", { vowelSum: 8, consonantSum: 3, totalSum: 11 }],
-  ])(
-    "Should get the value of %s as %s",
-    (word: string, expectedResult: LetterSumResult) => {
-      expect(
-        getLetterSumFromWord(word, {
-          sumRecursively: true,
-          stopNumbers: [11, 22],
-        })
-      ).toMatchObject(expectedResult);
-    }
-  );
+  ])("Should get the value of %s as %s", (word: string, expectedResult: LetterSumResult) => {
+    expect(
+      getLetterSumFromWord(word, {
+        sumRecursively: true,
+        stopNumbers: [11, 22],
+      })
+    ).toMatchObject(expectedResult);
+  });
+});
+
+describe("Testing getLetterSumFromString", () => {
+  it.each([
+    ["yyani", { vowelSum: 8, consonantSum: 3, totalSum: 11 }],
+    ["Gustavo Andrés Giordano", { vowelSum: 11, consonantSum: 4, totalSum: 6 }],
+    ["Miley Ray Cyrus", { vowelSum: 3, consonantSum: 2, totalSum: 5 }],
+  ])('Should get the value of "%s" as %s', (sentence: string, expectedResult: LetterSumResult) => {
+    expect(
+      getLetterSumFromString(sentence, {
+        sumRecursively: true,
+        stopNumbers: [11, 22],
+      })
+    ).toMatchObject(expectedResult);
+  });
 });
