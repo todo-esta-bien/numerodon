@@ -35,6 +35,7 @@ const testCases: TestCase[] = [
       balance: 7,
       strength: 7,
       spiritualInitiation: 5,
+      lifePath: 1,
     },
   },
 ];

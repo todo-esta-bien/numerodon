@@ -27,6 +27,7 @@ export class PythagoreanProfile {
   public readonly balance: number;
   public readonly strength: number;
   public readonly spiritualInitiation: number;
+  public readonly lifePath: number;
 
   public readonly pythagoreanSumOptions: ReduceNumberDigitsAttrs = {
     sumRecursively: true,
@@ -60,11 +61,10 @@ export class PythagoreanProfile {
 
     this.balance = this.getCompleteNameInitialsSum(this.completeName);
     this.strength = reduceNumberDigits(this.day + this.month, this.pythagoreanSumOptions);
+    this.lifePath = reduceNumberDigits(this.day + this.month + this.year, this.pythagoreanSumOptions);
+
     this.spiritualInitiation = reduceNumberDigits(
-      this.soul +
-        this.expression +
-        this.day +
-        reduceNumberDigits(this.day + this.month + this.year, this.pythagoreanSumOptions),
+      this.soul + this.expression + this.day + this.lifePath,
       this.pythagoreanSumOptions
     );
   }
