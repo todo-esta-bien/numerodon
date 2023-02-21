@@ -69,7 +69,7 @@ export class PythagoreanProfile {
     );
   }
 
-  getCompleteNameInitialsSum(completeName: string): number {
+  private getCompleteNameInitialsSum(completeName: string): number {
     const concatenatedInitials: string = completeName
       .split(" ")
       .map((name: string) => name[0])

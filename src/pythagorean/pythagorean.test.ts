@@ -17,7 +17,7 @@ type TestCase = {
   >;
 };
 
-const testCases: TestCase[] = [
+const profileTestCases: TestCase[] = [
   {
     original: {
       day: 23,
@@ -41,7 +41,7 @@ const testCases: TestCase[] = [
 ];
 
 describe("Testing PythagoreanProfile", () => {
-  it.each(testCases)("PythagoreanProfile($original)", ({ original, expected }) => {
+  it.each(profileTestCases)("PythagoreanProfile($original)", ({ original, expected }) => {
     // Act
     const profile: PythagoreanProfile = new PythagoreanProfile(original);
 
@@ -60,5 +60,26 @@ describe("Testing PythagoreanProfile", () => {
     expect(profile.names).toBe(original.names);
     expect(profile.fatherLastNames).toBe(original.fatherLastNames);
     expect(profile.motherLastNames).toBe(original.motherLastNames);
+  });
+
+  it("Should sum initials", () => {
+    // Arrange
+    // a + d + q = 1 + 4 + 8 = 13 = 4
+    const name = "Álvaro Díaz Quiroz";
+
+    // Act
+    const profile = new PythagoreanProfile({
+      day: 0,
+      month: 0,
+      year: 0,
+      names: "",
+      fatherLastNames: "",
+      motherLastNames: "",
+    });
+
+    const result = profile["getCompleteNameInitialsSum"](name);
+
+    // Assert
+    expect(result).toBe(4);
   });
 });
