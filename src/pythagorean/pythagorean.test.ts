@@ -347,6 +347,42 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       superHiddens: [6], // W
     },
   },
+  {
+    original: {
+      day: 18,
+      month: 12,
+      year: 1878,
+    },
+    expected: {
+      karma: 3, // A
+      personal: 9, // B
+      pastLife: 6, // C
+      personality: 9, // D
+
+      firstRealization: 3, // E
+      secondRealization: 6, // F
+      thirdRealization: 9, // G
+      fourthRealization: 9, // H
+      destiny: 9, // H
+
+      subconscious: 9, // I
+      unconscious: 9, // J
+
+      firstGoal: 6, // K
+      secondGoal: 3, // L
+      thirdGoal: 3, // M
+      fourthGoal: 3, // N
+
+      negativeUnconscious: 3, // O
+      shadow: 3, // P
+
+      familyInferiorBeing: 9, // Q
+      consciousInferiorBeing: 6, // R
+      latentInferiorBeing: 6, // S
+
+      superHiddens: [9, 9], // W
+    },
+  },
 ];
 
 describe("Testing PythagoreanPinnacle", () => {

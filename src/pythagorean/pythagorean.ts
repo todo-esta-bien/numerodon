@@ -139,12 +139,10 @@ export class PythagoreanPinnacle {
     this.fourthRealization = reduceNumberDigits(month + year, this.pythagoreanPinnacleSumOptions);
     this.destiny = this.fourthRealization;
 
-    // this.subconscious = reduceNumberDigits(2 * month + 4 * day + 2 * year, this.pythagoreanPinnacleSumOptions);
     this.subconscious = reduceNumberDigits(
       this.firstRealization + this.secondRealization + this.thirdRealization,
       this.pythagoreanPinnacleSumOptions
     );
-    // this.unconscious = reduceNumberDigits(2 * month + day + 2 * year, this.pythagoreanPinnacleSumOptions);
     this.unconscious = reduceNumberDigits(
       this.personality + this.fourthRealization,
       this.pythagoreanPinnacleSumOptions
