@@ -1,3 +1,8 @@
 export * from "./utils";
 export { TantricProfile, ITantricProfileConstructor } from "./tantric/tantric";
-export { PythagoreanProfile, IPythagoreanProfileConstructor } from "./pythagorean/pythagorean";
+export {
+  PythagoreanProfile,
+  IPythagoreanProfileConstructor,
+  PythagoreanPinnacle,
+  IPythagoreanPinnacleConstructor,
+} from "./pythagorean/pythagorean";
