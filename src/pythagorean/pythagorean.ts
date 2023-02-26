@@ -1,4 +1,10 @@
-import { getLetterSumFromString, LetterSumResult, reduceNumberDigits, ReduceNumberDigitsAttrs } from "../utils";
+import {
+  getLetterSumFromString,
+  LetterSumResult,
+  NumberReducer,
+  reduceNumberDigits,
+  ReduceNumberDigitsAttrs,
+} from "../utils";
 
 export interface IPythagoreanProfileConstructor {
   day: number;
@@ -34,6 +40,8 @@ export class PythagoreanProfile {
     stopNumbers: [11, 22, 33, 44],
   };
 
+  public readonly numberReducer: NumberReducer = reduceNumberDigits(this.pythagoreanSumOptions);
+
   constructor({ day, month, year, names, fatherLastNames, motherLastNames }: IPythagoreanProfileConstructor) {
     this.day = day;
     this.month = month;
@@ -53,20 +61,14 @@ export class PythagoreanProfile {
     // We're adding, and not concatenating, because in order to be a 33 you need to be super spiritual, and
     // there's a very low chance that it could be happening.
     // If for some reason we want to get back to the 33 calculations, uncomment this line:
-    // this.cosmicMission = reduceNumberDigits(+`${this.completeNameSumResult.totalSum}${day}${month}${year}`, this.pythagoreanSumOptions);
-    this.cosmicMission = reduceNumberDigits(
-      this.completeNameSumResult.totalSum + day + month + year,
-      this.pythagoreanSumOptions
-    );
+    // this.cosmicMission = this.numberReducer(+`${this.completeNameSumResult.totalSum}${day}${month}${year}`);
+    this.cosmicMission = this.numberReducer(this.completeNameSumResult.totalSum + day + month + year);
 
     this.balance = this.getCompleteNameInitialsSum(this.completeName);
-    this.strength = reduceNumberDigits(day + month, this.pythagoreanSumOptions);
-    this.lifePath = reduceNumberDigits(day + month + year, this.pythagoreanSumOptions);
+    this.strength = this.numberReducer(day + month);
+    this.lifePath = this.numberReducer(day + month + year);
 
-    this.spiritualInitiation = reduceNumberDigits(
-      this.soul + this.expression + day + this.lifePath,
-      this.pythagoreanSumOptions
-    );
+    this.spiritualInitiation = this.numberReducer(this.soul + this.expression + day + this.lifePath);
   }
 
   private getCompleteNameInitialsSum(completeName: string): number {
@@ -116,65 +118,77 @@ export class PythagoreanPinnacle {
   public readonly consciousInferiorBeing: number; // R
   public readonly latentInferiorBeing: number; // S
 
-  public readonly superHiddens: number[]; // W
+  public readonly absences: number[]; // T
+
+  public readonly triplicities: number[]; // W
 
   public readonly pythagoreanPinnacleSumOptions: ReduceNumberDigitsAttrs = {
     sumRecursively: true,
     stopNumbers: [11, 22, 33, 44],
   };
 
+  public readonly numberReducer: NumberReducer = reduceNumberDigits(this.pythagoreanPinnacleSumOptions);
+
   constructor({ day, month, year }: IPythagoreanPinnacleConstructor) {
     this.day = day;
     this.month = month;
     this.year = year;
 
-    this.karma = reduceNumberDigits(month, this.pythagoreanPinnacleSumOptions);
-    this.personal = reduceNumberDigits(day, this.pythagoreanPinnacleSumOptions);
-    this.pastLife = reduceNumberDigits(year, this.pythagoreanPinnacleSumOptions);
-    this.personality = reduceNumberDigits(day + month + year, this.pythagoreanPinnacleSumOptions);
+    this.karma = this.numberReducer(month);
+    this.personal = this.numberReducer(day);
+    this.pastLife = this.numberReducer(year);
+    this.personality = this.numberReducer(day + month + year);
 
-    this.firstRealization = reduceNumberDigits(month + day, this.pythagoreanPinnacleSumOptions);
-    this.secondRealization = reduceNumberDigits(day + year, this.pythagoreanPinnacleSumOptions);
-    this.thirdRealization = reduceNumberDigits(month + 2 * day + year, this.pythagoreanPinnacleSumOptions);
-    this.fourthRealization = reduceNumberDigits(month + year, this.pythagoreanPinnacleSumOptions);
+    this.firstRealization = this.numberReducer(month + day);
+    this.secondRealization = this.numberReducer(day + year);
+    this.thirdRealization = this.numberReducer(month + 2 * day + year);
+    this.fourthRealization = this.numberReducer(month + year);
     this.destiny = this.fourthRealization;
 
-    this.subconscious = reduceNumberDigits(
-      this.firstRealization + this.secondRealization + this.thirdRealization,
-      this.pythagoreanPinnacleSumOptions
-    );
-    this.unconscious = reduceNumberDigits(
-      this.personality + this.fourthRealization,
-      this.pythagoreanPinnacleSumOptions
-    );
+    this.subconscious = this.numberReducer(this.firstRealization + this.secondRealization + this.thirdRealization);
+    this.unconscious = this.numberReducer(this.personality + this.fourthRealization);
 
     // Below numbers needs to use reduced versions (with no stop numbers) of day, month and year
-    const reducedMonth = reduceNumberDigits(month, { sumRecursively: true });
-    const reducedDay = reduceNumberDigits(day, { sumRecursively: true });
-    const reducedYear = reduceNumberDigits(year, { sumRecursively: true });
+    const reducedMonth = reduceNumberDigits({ sumRecursively: true })(month);
+    const reducedDay = reduceNumberDigits({ sumRecursively: true })(day);
+    const reducedYear = reduceNumberDigits({ sumRecursively: true })(year);
 
-    this.firstGoal = reduceNumberDigits(Math.abs(reducedMonth - reducedDay), this.pythagoreanPinnacleSumOptions);
-    this.secondGoal = reduceNumberDigits(Math.abs(reducedDay - reducedYear), this.pythagoreanPinnacleSumOptions);
-    this.thirdGoal = reduceNumberDigits(Math.abs(this.firstGoal - this.secondGoal), this.pythagoreanPinnacleSumOptions);
-    this.fourthGoal = reduceNumberDigits(Math.abs(reducedMonth - reducedYear), this.pythagoreanPinnacleSumOptions);
+    this.firstGoal = this.numberReducer(Math.abs(reducedMonth - reducedDay));
+    this.secondGoal = this.numberReducer(Math.abs(reducedDay - reducedYear));
+    this.thirdGoal = this.numberReducer(Math.abs(this.firstGoal - this.secondGoal));
+    this.fourthGoal = this.numberReducer(Math.abs(reducedMonth - reducedYear));
 
-    this.negativeUnconscious = reduceNumberDigits(
-      this.firstGoal + this.secondGoal + this.thirdGoal,
-      this.pythagoreanPinnacleSumOptions
-    );
-    this.shadow = reduceNumberDigits(this.personality + this.negativeUnconscious, this.pythagoreanPinnacleSumOptions);
+    this.negativeUnconscious = this.numberReducer(this.firstGoal + this.secondGoal + this.thirdGoal);
+    this.shadow = this.numberReducer(this.personality + this.negativeUnconscious);
 
-    this.familyInferiorBeing = reduceNumberDigits(this.firstGoal + this.thirdGoal, this.pythagoreanPinnacleSumOptions);
-    this.consciousInferiorBeing = reduceNumberDigits(
-      this.secondGoal + this.thirdGoal,
-      this.pythagoreanPinnacleSumOptions
-    );
-    this.latentInferiorBeing = reduceNumberDigits(
-      this.familyInferiorBeing + this.consciousInferiorBeing,
-      this.pythagoreanPinnacleSumOptions
-    );
+    this.familyInferiorBeing = this.numberReducer(this.firstGoal + this.thirdGoal);
+    this.consciousInferiorBeing = this.numberReducer(this.secondGoal + this.thirdGoal);
+    this.latentInferiorBeing = this.numberReducer(this.familyInferiorBeing + this.consciousInferiorBeing);
 
-    this.superHiddens = this.calculateSuperHidden([
+    this.absences = this.calculateAbsences([
+      this.karma,
+      this.personal,
+      this.pastLife,
+      this.personality,
+      this.firstRealization,
+      this.secondRealization,
+      this.thirdRealization,
+      this.fourthRealization,
+      this.destiny,
+      this.subconscious,
+      this.unconscious,
+      this.firstGoal,
+      this.secondGoal,
+      this.thirdGoal,
+      this.fourthGoal,
+      this.negativeUnconscious,
+      this.shadow,
+      this.familyInferiorBeing,
+      this.consciousInferiorBeing,
+      this.latentInferiorBeing,
+    ]);
+
+    this.triplicities = this.calculateTriplicities([
       this.firstGoal,
       this.secondGoal,
       this.thirdGoal,
@@ -187,7 +201,17 @@ export class PythagoreanPinnacle {
     ]);
   }
 
-  private calculateSuperHidden(negativeNumbers: number[]): number[] {
+  private calculateAbsences(pinnacleNumbers: number[]): number[] {
+    // This is the missing number from 1 to 9, that is not present in all of the pinnacle numbers
+    const sortedPinnacleNumbers: Set<number> = new Set(pinnacleNumbers); // e.g. [2, 2, 2, 3, 4, 5, 6, 7, 8]
+    const neededNumbers: number[] = Array.from({ length: 9 }, (_, idx: number) => idx + 1); // e.g. [1, 2, ... 8, 9]
+
+    return neededNumbers.filter((neededNumber: number) => !sortedPinnacleNumbers.has(neededNumber)); // e.g. [1, 9]
+  }
+
+  private calculateTriplicities(negativeNumbers: number[]): number[] {
+    // If we have more than 3 equal numbers in the negative numbers, we should add that repeated number 3 times,
+    // and reduce it to one digit (except for 11 and 22)
     const sortedNegativeNumbers = [...negativeNumbers].sort();
 
     interface RepeatedNumbers {
@@ -196,13 +220,8 @@ export class PythagoreanPinnacle {
 
     const repeatedNumbers: RepeatedNumbers = sortedNegativeNumbers.reduce(
       (repeatedNumbers: RepeatedNumbers, currentNumber: number) => {
-        if (repeatedNumbers[currentNumber] === undefined) {
-          // Set initial value
-          repeatedNumbers[currentNumber] = 1;
-        } else {
-          // Increment number count
-          repeatedNumbers[currentNumber] += 1;
-        }
+        const currentCount = repeatedNumbers[currentNumber] || 0;
+        repeatedNumbers[currentNumber] = currentCount + 1;
 
         return repeatedNumbers;
       },
@@ -212,7 +231,7 @@ export class PythagoreanPinnacle {
     const bruteSuperHiddens = Object.entries(repeatedNumbers) // e.g. [['3', 1], ['12', 3], ['15', 4]]
       .filter(([, count]: [string, number]) => count >= 3) // e.g. [['12', 3], ['15', 4]]
       .map(([numberValue]: [string, number]) => +numberValue) // e.g. [12, 15]
-      .map((numberValue: number) => reduceNumberDigits(3 * numberValue, this.pythagoreanPinnacleSumOptions)); // e.g. [9, 9]
+      .map((numberValue: number) => this.numberReducer(3 * numberValue)); // e.g. [9, 9]
 
     return bruteSuperHiddens;
   }

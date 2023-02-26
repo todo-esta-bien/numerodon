@@ -5,6 +5,7 @@ import {
   type LetterSumResult,
   cleanString,
   getLetterSumFromString,
+  NumberReducer,
 } from "./utils";
 
 describe("Testing reduceNumberDigits", () => {
@@ -18,7 +19,7 @@ describe("Testing reduceNumberDigits", () => {
   ])(
     "Should sum all the digit from '%s/%s'. Recursively: %s",
     (number: number, expectedResult: Number, sumRecursively: boolean) => {
-      expect(reduceNumberDigits(number, { sumRecursively })).toEqual(expectedResult);
+      expect(reduceNumberDigits({ sumRecursively })(number)).toEqual(expectedResult);
     }
   );
 });
@@ -78,12 +79,17 @@ describe("Testing getLetterSumFromWord", () => {
     ["monroy", { vowelSum: 1, consonantSum: 9, totalSum: 1 }],
     ["yyani", { vowelSum: 8, consonantSum: 3, totalSum: 11 }],
   ])("Should get the value of %s as %s", (word: string, expectedResult: LetterSumResult) => {
-    expect(
-      getLetterSumFromWord(word, {
-        sumRecursively: true,
-        stopNumbers: [11, 22],
-      })
-    ).toMatchObject(expectedResult);
+    // Arrange
+    const numberReducer: NumberReducer = reduceNumberDigits({
+      sumRecursively: true,
+      stopNumbers: [11, 22],
+    });
+
+    // Act
+    const result: LetterSumResult = getLetterSumFromWord(word, numberReducer);
+
+    // Assert
+    expect(result).toMatchObject(expectedResult);
   });
 });
 
@@ -93,11 +99,13 @@ describe("Testing getLetterSumFromString", () => {
     ["Gustavo Andrés Giordano", { vowelSum: 11, consonantSum: 4, totalSum: 6 }],
     ["Miley Ray Cyrus", { vowelSum: 3, consonantSum: 2, totalSum: 5 }],
   ])('Should get the value of "%s" as %s', (sentence: string, expectedResult: LetterSumResult) => {
-    expect(
-      getLetterSumFromString(sentence, {
-        sumRecursively: true,
-        stopNumbers: [11, 22],
-      })
-    ).toMatchObject(expectedResult);
+    // Act
+    const result: LetterSumResult = getLetterSumFromString(sentence, {
+      sumRecursively: true,
+      stopNumbers: [11, 22],
+    });
+
+    // Assert
+    expect(result).toMatchObject(expectedResult);
   });
 });

@@ -19,6 +19,7 @@ type PythagoreanProfileTestCase = {
     | "getCompleteNameInitialsSum"
     | "completeName"
     | "completeNameSumResult"
+    | "numberReducer"
   >;
 };
 
@@ -91,7 +92,7 @@ describe("Testing PythagoreanProfile", () => {
 
 type PythagoreanPinnacleTestCase = {
   original: IPythagoreanPinnacleConstructor;
-  expected: Omit<PythagoreanPinnacle, "pythagoreanPinnacleSumOptions" | "day" | "month" | "year">;
+  expected: Omit<PythagoreanPinnacle, "pythagoreanPinnacleSumOptions" | "day" | "month" | "year" | "numberReducer">;
 };
 
 const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
@@ -128,7 +129,9 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       consciousInferiorBeing: 5, // R
       latentInferiorBeing: 8, // S
 
-      superHiddens: [], // W
+      absences: [9], // T
+
+      triplicities: [], // W
     },
   },
   {
@@ -164,7 +167,9 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       consciousInferiorBeing: 3, // R
       latentInferiorBeing: 5, // S
 
-      superHiddens: [3], // W
+      absences: [], // T
+
+      triplicities: [3], // W
     },
   },
   {
@@ -200,7 +205,9 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       consciousInferiorBeing: 6, // R
       latentInferiorBeing: 5, // S
 
-      superHiddens: [], // W
+      absences: [1], // T
+
+      triplicities: [], // W
     },
   },
   {
@@ -236,7 +243,9 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       consciousInferiorBeing: 4, // R
       latentInferiorBeing: 11, // S
 
-      superHiddens: [], // W
+      absences: [], // T
+
+      triplicities: [], // W
     },
   },
   {
@@ -272,7 +281,9 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       consciousInferiorBeing: 6, // R
       latentInferiorBeing: 1, // S
 
-      superHiddens: [], // W
+      absences: [], // T
+
+      triplicities: [], // W
     },
   },
   {
@@ -308,7 +319,9 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       consciousInferiorBeing: 5, // R
       latentInferiorBeing: 8, // S
 
-      superHiddens: [], // W
+      absences: [], // T
+
+      triplicities: [], // W
     },
   },
   {
@@ -344,7 +357,9 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       consciousInferiorBeing: 5, // R
       latentInferiorBeing: 5, // S
 
-      superHiddens: [6], // W
+      absences: [2, 3], // T
+
+      triplicities: [6], // W
     },
   },
   {
@@ -380,7 +395,9 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       consciousInferiorBeing: 6, // R
       latentInferiorBeing: 6, // S
 
-      superHiddens: [9, 9], // W
+      absences: [1, 2, 4, 5, 7, 8], // T
+
+      triplicities: [9, 9], // W
     },
   },
 ];
@@ -417,7 +434,9 @@ describe("Testing PythagoreanPinnacle", () => {
     expect(profile.consciousInferiorBeing).toBe(expected.consciousInferiorBeing);
     expect(profile.latentInferiorBeing).toBe(expected.latentInferiorBeing);
 
-    expect(profile.superHiddens).toMatchObject(expected.superHiddens);
+    expect(profile.absences).toMatchObject(expected.absences);
+
+    expect(profile.triplicities).toMatchObject(expected.triplicities);
   });
 
   it.each([
@@ -432,7 +451,37 @@ describe("Testing PythagoreanPinnacle", () => {
     const pinnacle = new PythagoreanPinnacle({ day: 0, month: 0, year: 0 });
 
     // Act
-    const result = pinnacle["calculateSuperHidden"](negativeNumbers);
+    const result = pinnacle["calculateTriplicities"](negativeNumbers);
+
+    // Assert
+    expect(result).toMatchObject(expected);
+  });
+
+  it.each([
+    [
+      [1, 1, 3, 5, 6, 7],
+      [2, 4, 8, 9],
+    ],
+    [
+      [3, 5, 6, 7, 8, 8, 8, 8, 8, 8, 8, 8],
+      [1, 2, 4, 9],
+    ],
+    [
+      [1, 3, 3, 8, 8, 8, 8, 3, 3, 5, 6, 7, 8, 8, 8, 1, 8, 8, 8, 8, 8, 8, 8, 8],
+      [2, 4, 9],
+    ],
+    [[1, 2, 3, 4, 5, 6, 7, 8, 9], []],
+    [[1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9], []],
+    [
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 7, 8],
+      [4, 5, 6, 9],
+    ],
+  ])("%s should calculate %s absences", (pinnacleNumbers: number[], expected: number[]) => {
+    // Arrange
+    const pinnacle = new PythagoreanPinnacle({ day: 0, month: 0, year: 0 });
+
+    // Act
+    const result = pinnacle["calculateAbsences"](pinnacleNumbers);
 
     // Assert
     expect(result).toMatchObject(expected);

@@ -2,7 +2,7 @@ import { TantricProfile, ITantricProfileConstructor } from "./tantric";
 
 type TestCase = {
   birthday: ITantricProfileConstructor;
-  expectedTantricProfile: Omit<TantricProfile, "day" | "month" | "year" | "tantricSumOptions">;
+  expectedTantricProfile: Omit<TantricProfile, "day" | "month" | "year" | "tantricSumOptions" | "numberReducer">;
 };
 
 const testCases: TestCase[] = [

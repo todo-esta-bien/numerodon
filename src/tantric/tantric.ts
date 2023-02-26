@@ -1,4 +1,4 @@
-import { reduceNumberDigits, ReduceNumberDigitsAttrs } from "../utils";
+import { NumberReducer, reduceNumberDigits, ReduceNumberDigitsAttrs } from "../utils";
 
 export interface ITantricProfileConstructor {
   day: number;
@@ -22,18 +22,20 @@ export class TantricProfile {
     stopNumbers: [10, 11, 22, 33, 44],
   };
 
+  public readonly numberReducer: NumberReducer = reduceNumberDigits(this.tantricSumOptions);
+
   constructor({ day, month, year }: ITantricProfileConstructor) {
     this.day = day;
     this.month = month;
     this.year = year;
-    this.soul = reduceNumberDigits(day, this.tantricSumOptions);
-    this.karma = reduceNumberDigits(month, this.tantricSumOptions);
-    this.divineGift = reduceNumberDigits(year % 100, this.tantricSumOptions); // Only last two digits from year
-    this.lastLife = reduceNumberDigits(year, this.tantricSumOptions);
+    this.soul = this.numberReducer(day);
+    this.karma = this.numberReducer(month);
+    this.divineGift = this.numberReducer(year % 100); // Only last two digits from year
+    this.lastLife = this.numberReducer(year);
     // We're adding, and not concatenating, because in order to be a 33 you need to be super spiritual, and
     // there's a very low chance that it could be happening.
     // If for some reason we want to get back to the 33 calculations, uncomment this line:
-    // this.path = reduceNumberDigits(+`${day}${month}${year}`, this.tantricSumOptions);
-    this.path = reduceNumberDigits(day + month + year, this.tantricSumOptions);
+    // this.path = this.numberReducer(+`${day}${month}${year}`);
+    this.path = this.numberReducer(day + month + year);
   }
 }
