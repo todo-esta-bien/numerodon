@@ -11,21 +11,22 @@ export type LetterSumResult = {
   totalSum: number;
 };
 
-export const reduceNumberDigits = (
-  number: number,
-  { sumRecursively = false, stopNumbers = [] }: ReduceNumberDigitsAttrs = {}
-): number => {
-  if (stopNumbers.includes(number)) {
-    return number;
-  }
+export type NumberReducer = (number: number) => number;
 
-  const result = `${number}` // e.g. '421'
-    .split("") // e.g. ['4', '2', '1']
-    .map((i) => +i) // e.g. [4, 2, 1]
-    .reduce((carr, el) => carr + el); // e.g. 4 + 3 + 1
+export const reduceNumberDigits =
+  ({ sumRecursively = false, stopNumbers = [] }: ReduceNumberDigitsAttrs = {}): NumberReducer =>
+  (number: number): number => {
+    if (stopNumbers.includes(number)) {
+      return number;
+    }
 
-  return result < 10 || !sumRecursively ? result : reduceNumberDigits(result, { sumRecursively, stopNumbers });
-};
+    const result = `${number}` // e.g. '421'
+      .split("") // e.g. ['4', '2', '1']
+      .map((i) => +i) // e.g. [4, 2, 1]
+      .reduce((carr, el) => carr + el); // e.g. 4 + 3 + 1
+
+    return result < 10 || !sumRecursively ? result : reduceNumberDigits({ sumRecursively, stopNumbers })(result);
+  };
 
 export const getLetterValue = (letter: string): number => {
   const letterNumberMap = {
@@ -51,10 +52,7 @@ export const cleanString = (str: string): string =>
     .normalize("NFD") // e.g. 'mar´ia rodr´iguez'
     .replace(/\p{Diacritic}/gu, ""); // e.g. 'maria rodriguez'
 
-export const getLetterSumFromWord = (
-  word: string,
-  reduceNumberAttrs: ReduceNumberDigitsAttrs = {}
-): LetterSumResult => {
+export const getLetterSumFromWord = (word: string, numberReducer: NumberReducer): LetterSumResult => {
   // We expect the word to be cleaned and in lowercase
   const letters = word.split("");
 
@@ -107,9 +105,9 @@ export const getLetterSumFromWord = (
   }
 
   return {
-    vowelSum: reduceNumberDigits(vowelSum, reduceNumberAttrs),
-    consonantSum: reduceNumberDigits(consonantSum, reduceNumberAttrs),
-    totalSum: reduceNumberDigits(vowelSum + consonantSum, reduceNumberAttrs),
+    vowelSum: numberReducer(vowelSum),
+    consonantSum: numberReducer(consonantSum),
+    totalSum: numberReducer(vowelSum + consonantSum),
   };
 };
 
@@ -117,9 +115,11 @@ export const getLetterSumFromString = (
   str: string,
   reduceNumberAttrs: ReduceNumberDigitsAttrs = {}
 ): LetterSumResult => {
+  const numberReducer: NumberReducer = reduceNumberDigits(reduceNumberAttrs);
+
   const addedResult: LetterSumResult = cleanString(str) // e.g. 'María Rodríguez' -> 'maria rodriguez'
     .split(" ") // e.g. ['maria', 'rodriguez']
-    .map((word: string) => getLetterSumFromWord(word, reduceNumberAttrs)) // e.g. [{vowelSum...}, {vowelSum...}]
+    .map((word: string) => getLetterSumFromWord(word, numberReducer)) // e.g. [{vowelSum...}, {vowelSum...}]
     .reduce((prevResult: LetterSumResult, currentResult: LetterSumResult) => ({
       // e.g. {vowelSum...}
       vowelSum: prevResult.vowelSum + currentResult.vowelSum,
@@ -128,8 +128,8 @@ export const getLetterSumFromString = (
     }));
 
   return {
-    vowelSum: reduceNumberDigits(addedResult.vowelSum, reduceNumberAttrs),
-    consonantSum: reduceNumberDigits(addedResult.consonantSum, reduceNumberAttrs),
-    totalSum: reduceNumberDigits(addedResult.totalSum, reduceNumberAttrs),
+    vowelSum: numberReducer(addedResult.vowelSum),
+    consonantSum: numberReducer(addedResult.consonantSum),
+    totalSum: numberReducer(addedResult.totalSum),
   };
 };
