@@ -446,7 +446,7 @@ describe("Testing PythagoreanPinnacle", () => {
     ],
     [[3, 15, 3, 12, 15, 12, 4, 15, 5], [9]],
     [[3, 15, 3, 12, 15, 12, 4, 5], []],
-  ])("%s should generate %s super hiddens", (negativeNumbers: number[], expected: number[]) => {
+  ])("%s should generate %s triplicities", (negativeNumbers: number[], expected: number[]) => {
     // Arrange
     const pinnacle = new PythagoreanPinnacle({ day: 0, month: 0, year: 0 });
 
