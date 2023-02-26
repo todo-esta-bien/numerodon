@@ -122,12 +122,12 @@ export class PythagoreanPinnacle {
 
   public readonly triplicities: number[]; // W
 
-  public readonly pythagoreanPinnacleSumOptions: ReduceNumberDigitsAttrs = {
+  private readonly pythagoreanPinnacleSumOptions: ReduceNumberDigitsAttrs = {
     sumRecursively: true,
     stopNumbers: [11, 22, 33, 44],
   };
 
-  public readonly numberReducer: NumberReducer = reduceNumberDigits(this.pythagoreanPinnacleSumOptions);
+  private readonly numberReducer: NumberReducer = reduceNumberDigits(this.pythagoreanPinnacleSumOptions);
 
   constructor({ day, month, year }: IPythagoreanPinnacleConstructor) {
     this.day = day;

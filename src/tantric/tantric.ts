@@ -17,12 +17,12 @@ export class TantricProfile {
   public readonly lastLife: number;
   public readonly path: number;
 
-  public readonly tantricSumOptions: ReduceNumberDigitsAttrs = {
+  private readonly tantricSumOptions: ReduceNumberDigitsAttrs = {
     sumRecursively: true,
     stopNumbers: [10, 11, 22, 33, 44],
   };
 
-  public readonly numberReducer: NumberReducer = reduceNumberDigits(this.tantricSumOptions);
+  private readonly numberReducer: NumberReducer = reduceNumberDigits(this.tantricSumOptions);
 
   constructor({ day, month, year }: ITantricProfileConstructor) {
     this.day = day;
