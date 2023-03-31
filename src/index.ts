@@ -6,3 +6,4 @@ export {
   PythagoreanPinnacle,
   IPythagoreanPinnacleConstructor,
 } from "./pythagorean/pythagorean";
+export { IEvolutiveProfileConstructor, EvolutiveNumbers, EvolutiveProfile } from "./evolutive/evolutive";
