@@ -133,3 +133,17 @@ export const getLetterSumFromString = (
     totalSum: numberReducer(addedResult.totalSum),
   };
 };
+
+export const repeatArrayElements = <T>(originalArray: T[], elementsAmount: number): T[] => {
+  if (elementsAmount <= originalArray.length) {
+    return originalArray.slice(0, elementsAmount);
+  }
+
+  const completeTimes = Math.floor(elementsAmount / originalArray.length);
+  const repeatedCompleteArrays = Array.from({ length: completeTimes }, (_) => [...originalArray]).flat();
+
+  const remainder = elementsAmount % originalArray.length;
+  const missingElements = Array.from({ length: remainder }, (_, idx) => originalArray[idx]);
+
+  return [...repeatedCompleteArrays, ...missingElements];
+};

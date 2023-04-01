@@ -6,6 +6,7 @@ import {
   cleanString,
   getLetterSumFromString,
   NumberReducer,
+  repeatArrayElements,
 } from "./utils";
 
 describe("Testing reduceNumberDigits", () => {
@@ -107,5 +108,22 @@ describe("Testing getLetterSumFromString", () => {
 
     // Assert
     expect(result).toMatchObject(expectedResult);
+  });
+});
+
+describe("Testing repeatArrayElements", () => {
+  it.each([
+    [[0, 1, 2, 3, 4], 3, [0, 1, 2]],
+    [[0, 1, 2, 3, 4], 4, [0, 1, 2, 3]],
+    [[0, 1, 2, 3, 4], 5, [0, 1, 2, 3, 4]],
+    [[0, 1, 2, 3, 4], 6, [0, 1, 2, 3, 4, 0]],
+    [[0, 1, 2, 3, 4], 10, [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]],
+    [[0, 1, 2, 3, 4], 12, [0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 0, 1]],
+  ])('"%s" should be expanded to "%s"', (original: number[], elementsAmount: number, expected: number[]) => {
+    // Act
+    const result: number[] = repeatArrayElements(original, elementsAmount);
+
+    // Assert
+    expect(result).toEqual(expected);
   });
 });
