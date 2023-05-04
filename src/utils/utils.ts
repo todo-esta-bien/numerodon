@@ -20,10 +20,10 @@ export const reduceNumberDigits =
       return number;
     }
 
-    const result = `${number}` // e.g. '421'
+    const result: number = `${number}` // e.g. '421'
       .split("") // e.g. ['4', '2', '1']
       .map((i) => +i) // e.g. [4, 2, 1]
-      .reduce((carr, el) => carr + el); // e.g. 4 + 3 + 1
+      .reduce((carr, el) => carr + el); // e.g. 4 + 2 + 1
 
     return result < 10 || !sumRecursively ? result : reduceNumberDigits({ sumRecursively, stopNumbers })(result);
   };
