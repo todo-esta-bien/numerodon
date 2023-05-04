@@ -2,7 +2,10 @@ import { Base22Profile, IBase22ProfileConstructor } from "./base22";
 
 type Base22ProfileTestCase = {
   original: IBase22ProfileConstructor;
-  expected: Omit<Base22Profile, "day" | "month" | "year" | "base22SumOptions" | "numberReducer">;
+  expected: Omit<
+    Base22Profile,
+    "day" | "month" | "year" | "base22SumOptions" | "numberReducer" | "reducedDay" | "reducedMonth" | "reducedYear"
+  >;
 };
 
 const base22TestCases: Base22ProfileTestCase[] = [

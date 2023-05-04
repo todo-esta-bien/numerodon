@@ -46,9 +46,9 @@ export class Base22Profile {
 
   public readonly numberReducer: NumberReducer = reduceNumberDigits(this.base22SumOptions);
 
-  private readonly reducedDay: number;
-  private readonly reducedMonth: number;
-  private readonly reducedYear: number;
+  public readonly reducedDay: number;
+  public readonly reducedMonth: number;
+  public readonly reducedYear: number;
 
   constructor({ day, month, year }: IBase22ProfileConstructor) {
     this.day = day;
