@@ -41,8 +41,6 @@ export class Base22Profile {
 
   public readonly base22SumOptions: ReduceNumberDigitsAttrs = {
     sumRecursively: true,
-    // Si sale 26, 30, 33, 40, 44, se debe usar el numero reducido para las operaciones, pero se debe de mostrar el
-    // mayor con una diagonal y el numero reducido
     stopNumbers: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 26, 30, 33, 40, 44],
   };
 
