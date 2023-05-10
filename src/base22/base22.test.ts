@@ -38,7 +38,7 @@ const base22TestCases: Base22ProfileTestCase[] = [
       firstSpiritualBaseB: 22, // 1B
       firstSpiritualBaseC: 20, // 1C
 
-      secondSpiritualBaseA: 8, // 2A
+      secondSpiritualBaseA: 44, // 2A
       secondSpiritualBaseB: 6, // 2B
       secondSpiritualBaseC: 6, // 2C
 
@@ -111,7 +111,7 @@ const base22TestCases: Base22ProfileTestCase[] = [
       firstSpiritualBaseC: 22, // 1C
 
       secondSpiritualBaseA: 5, // 2A
-      secondSpiritualBaseB: 8, // 2B
+      secondSpiritualBaseB: 44, // 2B
       secondSpiritualBaseC: 5, // 2C
 
       thirdSpiritualBaseA: 10, // 3A

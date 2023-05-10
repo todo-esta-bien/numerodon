@@ -41,7 +41,9 @@ export class Base22Profile {
 
   public readonly base22SumOptions: ReduceNumberDigitsAttrs = {
     sumRecursively: true,
-    stopNumbers: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 26, 30, 33, 40],
+    // Si sale 26, 30, 33, 40, 44, se debe usar el numero reducido para las operaciones, pero se debe de mostrar el
+    // mayor con una diagonal y el numero reducido
+    stopNumbers: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 26, 30, 33, 40, 44],
   };
 
   public readonly numberReducer: NumberReducer = reduceNumberDigits(this.base22SumOptions);
@@ -55,42 +57,80 @@ export class Base22Profile {
     this.month = month;
     this.year = year;
 
+    const lastReducer = reduceNumberDigits({
+      sumRecursively: false,
+      stopNumbers: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+    });
+
     this.reducedDay = this.numberReducer(this.day);
     this.reducedMonth = this.numberReducer(this.month);
     this.reducedYear = this.numberReducer(this.year);
 
     this.deepPersonality = this.numberReducer(this.reducedDay + this.reducedMonth + this.reducedYear); // PP
+    const reducedDeepPersonality = lastReducer(this.deepPersonality);
+
     this.emotionalKnot = this.numberReducer(this.reducedDay + this.reducedYear); // NE
-    this.emotionalSearch = this.numberReducer(this.deepPersonality + this.emotionalKnot); // QE
+    const reducedEmotionalKnot = lastReducer(this.emotionalKnot);
+
+    this.emotionalSearch = this.numberReducer(reducedDeepPersonality + reducedEmotionalKnot); // QE
+
     this.internalSocialBehavior = this.numberReducer(this.reducedDay + this.reducedMonth); // CIS
+    const reducedInternalSocialBehavior = lastReducer(this.internalSocialBehavior);
+
     this.externalSocialBehavior = this.numberReducer(this.reducedMonth + this.reducedYear); // CES
-    this.externalSocialPersonality = this.numberReducer(this.internalSocialBehavior + this.externalSocialBehavior); // PES
-    this.harmonySearch = this.numberReducer(this.deepPersonality + this.externalSocialPersonality); // RH
-    this.spiritualSearch = this.numberReducer(this.reducedMonth + this.deepPersonality); // QS
+    const reducedExternalSocialBehavior = lastReducer(this.externalSocialBehavior);
+
+    this.externalSocialPersonality = this.numberReducer(reducedInternalSocialBehavior + reducedExternalSocialBehavior); // PES
+    const reducedExternalSocialPersonality = lastReducer(this.externalSocialPersonality);
+
+    this.harmonySearch = this.numberReducer(reducedDeepPersonality + reducedExternalSocialPersonality); // RH
+    const reducedHarmonySearch = lastReducer(this.harmonySearch);
+
+    this.spiritualSearch = this.numberReducer(this.reducedMonth + reducedDeepPersonality); // QS
 
     const resistanceNumber = this.numberReducer(
       Math.abs(Math.abs(this.reducedYear - this.reducedMonth) - this.reducedDay)
     ); // NR
     this.resistanceNumber = resistanceNumber === 0 ? 22 : resistanceNumber;
+    const reducedResistanceNumber = lastReducer(this.resistanceNumber);
 
-    this.emerge = this.numberReducer(this.resistanceNumber + this.externalSocialPersonality); // RS
+    this.emerge = this.numberReducer(reducedResistanceNumber + reducedExternalSocialPersonality); // RS
+    const reducedEmerge = lastReducer(this.emerge);
+
     this.painKnot = this.numberReducer(Math.abs(this.reducedYear - this.reducedDay)); // ND
+
     this.internalDefenseBehavior = this.numberReducer(Math.abs(this.reducedDay - this.reducedMonth)); // CID
+    const reducedInternalDefenseBehavior = lastReducer(this.internalDefenseBehavior);
+
     this.externalDefenseBehavior = this.numberReducer(Math.abs(this.reducedYear - this.reducedMonth)); // CED
+    const reducedExternalDefenseBehavior = lastReducer(this.externalDefenseBehavior);
+
     this.externalDefensePersonality = this.numberReducer(
-      Math.abs(this.internalDefenseBehavior - this.externalDefenseBehavior)
+      Math.abs(reducedInternalDefenseBehavior - reducedExternalDefenseBehavior)
     ); // PED
-    this.externalExitSearch = this.numberReducer(Math.abs(this.deepPersonality - this.externalDefensePersonality)); // RE
-    this.escapeNumber = this.numberReducer(Math.abs(this.resistanceNumber - this.externalDefensePersonality)); // NF
+    const reducedExternalDefensePersonality = lastReducer(this.externalDefensePersonality);
 
-    this.firstSpiritualBaseA = this.numberReducer(this.emerge + this.externalSocialPersonality); // 1A
-    this.firstSpiritualBaseB = this.numberReducer(this.emerge + this.harmonySearch); // 1B
-    this.firstSpiritualBaseC = this.numberReducer(this.externalSocialPersonality + this.harmonySearch); // 1C
+    this.externalExitSearch = this.numberReducer(Math.abs(reducedDeepPersonality - reducedExternalDefensePersonality)); // RE
 
-    this.secondSpiritualBaseA = this.numberReducer(this.firstSpiritualBaseA + this.firstSpiritualBaseB); // 2A
-    this.secondSpiritualBaseB = this.numberReducer(this.firstSpiritualBaseA + this.firstSpiritualBaseC); // 2B
-    this.secondSpiritualBaseC = this.numberReducer(this.firstSpiritualBaseB + this.firstSpiritualBaseC); // 2C
+    this.escapeNumber = this.numberReducer(Math.abs(reducedResistanceNumber - reducedExternalDefensePersonality)); // NF
 
-    this.thirdSpiritualBaseA = this.numberReducer(this.secondSpiritualBaseA + this.secondSpiritualBaseC); // 3A
+    this.firstSpiritualBaseA = this.numberReducer(reducedEmerge + reducedExternalSocialPersonality); // 1A
+    const reducedFirstSpiritualBaseA = lastReducer(this.firstSpiritualBaseA);
+
+    this.firstSpiritualBaseB = this.numberReducer(reducedEmerge + reducedHarmonySearch); // 1B
+    const reducedFirstSpiritualBaseB = lastReducer(this.firstSpiritualBaseB);
+
+    this.firstSpiritualBaseC = this.numberReducer(reducedExternalSocialPersonality + reducedHarmonySearch); // 1C
+    const reducedFirstSpiritualBaseC = lastReducer(this.firstSpiritualBaseC);
+
+    this.secondSpiritualBaseA = this.numberReducer(reducedFirstSpiritualBaseA + reducedFirstSpiritualBaseB); // 2A
+    const reducedSecondSpiritualBaseA = lastReducer(this.secondSpiritualBaseA);
+
+    this.secondSpiritualBaseB = this.numberReducer(reducedFirstSpiritualBaseA + reducedFirstSpiritualBaseC); // 2B
+
+    this.secondSpiritualBaseC = this.numberReducer(reducedFirstSpiritualBaseB + reducedFirstSpiritualBaseC); // 2C
+    const reducedSecondSpiritualBaseC = lastReducer(this.secondSpiritualBaseC);
+
+    this.thirdSpiritualBaseA = this.numberReducer(reducedSecondSpiritualBaseA + reducedSecondSpiritualBaseC); // 3A
   }
 }
