@@ -122,6 +122,10 @@ export class PythagoreanPinnacle {
 
   public readonly triplicities: number[]; // W
 
+  public readonly firstLifeStage: number;
+  public readonly secondLifeStage: number;
+  public readonly thirdLifeStage: number;
+
   private readonly pythagoreanPinnacleSumOptions: ReduceNumberDigitsAttrs = {
     sumRecursively: true,
     stopNumbers: [11, 22, 33, 44],
@@ -199,6 +203,13 @@ export class PythagoreanPinnacle {
       this.consciousInferiorBeing,
       this.latentInferiorBeing,
     ]);
+
+    // 36 because 🤷
+    this.firstLifeStage = 36 - this.personality;
+
+    // 9 because 🤷
+    this.secondLifeStage = this.firstLifeStage + 9;
+    this.thirdLifeStage = this.secondLifeStage + 9;
   }
 
   private calculateAbsences(pinnacleNumbers: number[]): number[] {

@@ -132,6 +132,10 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       absences: [9], // T
 
       triplicities: [], // W
+
+      firstLifeStage: 28,
+      secondLifeStage: 37,
+      thirdLifeStage: 46,
     },
   },
   {
@@ -170,6 +174,10 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       absences: [], // T
 
       triplicities: [3], // W
+
+      firstLifeStage: 30,
+      secondLifeStage: 39,
+      thirdLifeStage: 48,
     },
   },
   {
@@ -208,6 +216,10 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       absences: [1], // T
 
       triplicities: [], // W
+
+      firstLifeStage: 28,
+      secondLifeStage: 37,
+      thirdLifeStage: 46,
     },
   },
   {
@@ -246,6 +258,10 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       absences: [], // T
 
       triplicities: [], // W
+
+      firstLifeStage: 30,
+      secondLifeStage: 39,
+      thirdLifeStage: 48,
     },
   },
   {
@@ -284,6 +300,10 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       absences: [], // T
 
       triplicities: [], // W
+
+      firstLifeStage: 28,
+      secondLifeStage: 37,
+      thirdLifeStage: 46,
     },
   },
   {
@@ -322,6 +342,10 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       absences: [], // T
 
       triplicities: [], // W
+
+      firstLifeStage: 14,
+      secondLifeStage: 23,
+      thirdLifeStage: 32,
     },
   },
   {
@@ -360,6 +384,10 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       absences: [2, 3], // T
 
       triplicities: [6], // W
+
+      firstLifeStage: 30,
+      secondLifeStage: 39,
+      thirdLifeStage: 48,
     },
   },
   {
@@ -398,6 +426,10 @@ const pythagoreanPinnacleTestCases: PythagoreanPinnacleTestCase[] = [
       absences: [1, 2, 4, 5, 7, 8], // T
 
       triplicities: [9, 9], // W
+
+      firstLifeStage: 27,
+      secondLifeStage: 36,
+      thirdLifeStage: 45,
     },
   },
 ];
@@ -437,6 +469,10 @@ describe("Testing PythagoreanPinnacle", () => {
     expect(profile.absences).toMatchObject(expected.absences);
 
     expect(profile.triplicities).toMatchObject(expected.triplicities);
+
+    expect(profile.firstLifeStage).toBe(expected.firstLifeStage);
+    expect(profile.secondLifeStage).toBe(expected.secondLifeStage);
+    expect(profile.thirdLifeStage).toBe(expected.thirdLifeStage);
   });
 
   it.each([
