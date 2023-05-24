@@ -7,6 +7,7 @@ import {
   getLetterSumFromString,
   NumberReducer,
   repeatArrayElements,
+  generateExpandedNames,
 } from "./utils";
 
 describe("Testing reduceNumberDigits", () => {
@@ -125,5 +126,27 @@ describe("Testing repeatArrayElements", () => {
 
     // Assert
     expect(result).toEqual(expected);
+  });
+});
+
+describe("Testing generateExpandedNames", () => {
+  it.each([
+    ["", 10, "          "],
+    ["j", 10, "jjjjjjjjjj"],
+    ["j    ", 10, "jjjjjjjjjj"],
+    ["j h", 10, "jhhhhhhhhj"],
+    ["jhocelyn", 10, "jhhhhhhhho"],
+    ["jhocelyn", 38, "jhhhhhhhhooooooccceeeeelllyyyyyyynnnnn"],
+    [
+      "jhocelyn",
+      102,
+      "jhhhhhhhhooooooccceeeeelllyyyyyyynnnnnjhhhhhhhhooooooccceeeeelllyyyyyyynnnnnjhhhhhhhhooooooccceeeeelll",
+    ],
+  ])('"%s" should be expanded to "%s"', (original: string, expansionLimit: number, expected: string) => {
+    // Act
+    const result: string[] = generateExpandedNames(original, expansionLimit);
+
+    // Assert
+    expect(result.join("")).toEqual(expected);
   });
 });

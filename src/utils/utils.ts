@@ -147,3 +147,29 @@ export const repeatArrayElements = <T>(originalArray: T[], elementsAmount: numbe
 
   return [...repeatedCompleteArrays, ...missingElements];
 };
+
+export const generateExpandedNames = (str: string, expansionLimit: number): string[] => {
+  const cleanedNameLetters: string[] = cleanString(str).replace(/\s/g, "").split("");
+
+  if (cleanedNameLetters.length === 0) {
+    return new Array(expansionLimit).fill(" ");
+  }
+
+  const result: string[] = [];
+  let currentLetterIdx = 0;
+  let repetitionsCount = 0;
+  let letterMaxRepetitions = getLetterValue(cleanedNameLetters[currentLetterIdx]);
+
+  for (let i = 0; i < expansionLimit; i++) {
+    if (repetitionsCount >= letterMaxRepetitions) {
+      currentLetterIdx = (currentLetterIdx + 1) % cleanedNameLetters.length;
+      repetitionsCount = 0;
+      letterMaxRepetitions = getLetterValue(cleanedNameLetters[currentLetterIdx]);
+    }
+
+    result.push(cleanedNameLetters[currentLetterIdx]);
+    repetitionsCount++;
+  }
+
+  return result;
+};
