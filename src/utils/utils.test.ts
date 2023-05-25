@@ -161,7 +161,7 @@ describe("Testing generateExpandedLetterCount", () => {
     ["jhocelyn", "11111111"],
   ])('"%s" should be expanded to "%s"', (original: string, expected: string) => {
     // Act
-    const result: number[] = generateExpandedLetterCount(original);
+    const result: number[] = generateExpandedLetterCount(original.split(""));
 
     // Assert
     expect(result.join("")).toEqual(expected);

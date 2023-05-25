@@ -174,7 +174,7 @@ export const generateExpandedNames = (str: string, expansionLimit: number): stri
   return result;
 };
 
-export const generateExpandedLetterCount = (str: string): number[] => {
+export const generateExpandedLetterCount = (str: string[]): number[] => {
   const result: number[] = [];
   let currentLetter = str[0];
   let currentLetterCount = 0;
