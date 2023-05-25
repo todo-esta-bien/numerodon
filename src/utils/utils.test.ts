@@ -7,6 +7,8 @@ import {
   getLetterSumFromString,
   NumberReducer,
   repeatArrayElements,
+  generateExpandedNames,
+  generateExpandedLetterCount,
 } from "./utils";
 
 describe("Testing reduceNumberDigits", () => {
@@ -125,5 +127,43 @@ describe("Testing repeatArrayElements", () => {
 
     // Assert
     expect(result).toEqual(expected);
+  });
+});
+
+describe("Testing generateExpandedNames", () => {
+  it.each([
+    ["", 10, "          "],
+    ["j", 10, "jjjjjjjjjj"],
+    ["j    ", 10, "jjjjjjjjjj"],
+    ["j h", 10, "jhhhhhhhhj"],
+    ["jhocelyn", 10, "jhhhhhhhho"],
+    ["jhocelyn", 38, "jhhhhhhhhooooooccceeeeelllyyyyyyynnnnn"],
+    [
+      "jhocelyn",
+      102,
+      "jhhhhhhhhooooooccceeeeelllyyyyyyynnnnnjhhhhhhhhooooooccceeeeelllyyyyyyynnnnnjhhhhhhhhooooooccceeeeelll",
+    ],
+  ])('"%s" should be expanded to "%s"', (original: string, expansionLimit: number, expected: string) => {
+    // Act
+    const result: string[] = generateExpandedNames(original, expansionLimit);
+
+    // Assert
+    expect(result.join("")).toEqual(expected);
+  });
+});
+
+describe("Testing generateExpandedLetterCount", () => {
+  it.each([
+    ["", ""],
+    ["jjjjjjjjj", "123456789"],
+    ["jhhhhhhhhj", "1123456781"],
+    ["jhhhhhhhho", "1123456781"],
+    ["jhocelyn", "11111111"],
+  ])('"%s" should be expanded to "%s"', (original: string, expected: string) => {
+    // Act
+    const result: number[] = generateExpandedLetterCount(original.split(""));
+
+    // Assert
+    expect(result.join("")).toEqual(expected);
   });
 });
