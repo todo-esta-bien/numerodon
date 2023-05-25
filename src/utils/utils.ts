@@ -173,3 +173,20 @@ export const generateExpandedNames = (str: string, expansionLimit: number): stri
 
   return result;
 };
+
+export const generateExpandedLetterCount = (str: string): number[] => {
+  const result: number[] = [];
+  let currentLetter = str[0];
+  let currentLetterCount = 0;
+
+  for (const char of str) {
+    if (currentLetter !== char) {
+      currentLetter = char;
+      currentLetterCount = 0;
+    }
+
+    result.push(++currentLetterCount);
+  }
+
+  return result;
+};
