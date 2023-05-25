@@ -3,6 +3,7 @@ import {
   reduceNumberDigits,
   ReduceNumberDigitsAttrs,
   generateExpandedNames,
+  generateExpandedLetterCount,
   getLetterValue,
 } from "../utils";
 
@@ -32,15 +33,19 @@ export class DestinyTable {
 
   public readonly expandedMentalPlane: string[];
   public readonly expandedMentalPlaneLetterValues: number[];
+  public readonly expandedMentalPlaneLetterCount: number[];
 
   public readonly expandedPhysicalPlane: string[];
   public readonly expandedPhysicalPlaneLetterValues: number[];
+  public readonly expandedPhysicalPlaneLetterCount: number[];
 
   public readonly expandedEmotionalPlane: string[];
   public readonly expandedEmotionalPlaneLetterValues: number[];
+  public readonly expandedEmotionalPlaneLetterCount: number[];
 
-  // public readonly expandedSpiritualPlane: string[];
-  // public readonly expandedSpiritualPlaneLetterValues: number[];
+  public readonly expandedSpiritualPlane: number[];
+
+  public readonly expandedDestinyNumber: number[];
 
   public readonly expandedPersonalYears: number[];
   public readonly expandedRealizationNumbers: string[];
@@ -80,14 +85,34 @@ export class DestinyTable {
 
     this.expandedMentalPlane = generateExpandedNames(this.names, this.yearExpansionLimit);
     this.expandedMentalPlaneLetterValues = this.expandedMentalPlane.map((letter) => getLetterValue(letter));
+    this.expandedMentalPlaneLetterCount = generateExpandedLetterCount(this.expandedMentalPlane);
 
     this.expandedPhysicalPlane = generateExpandedNames(this.fatherLastNames, this.yearExpansionLimit);
     this.expandedPhysicalPlaneLetterValues = this.expandedPhysicalPlane.map((letter) => getLetterValue(letter));
+    this.expandedPhysicalPlaneLetterCount = generateExpandedLetterCount(this.expandedPhysicalPlane);
 
     this.expandedEmotionalPlane = generateExpandedNames(this.motherLastNames, this.yearExpansionLimit);
     this.expandedEmotionalPlaneLetterValues = this.expandedEmotionalPlane.map((letter) => getLetterValue(letter));
+    this.expandedEmotionalPlaneLetterCount = generateExpandedLetterCount(this.expandedEmotionalPlane);
 
     this.expandedPersonalYears = this.expandedYears.map((year) => this.numberReducer(year + this.month + this.day));
+
+    this.expandedSpiritualPlane = Array.from({ length: this.yearExpansionLimit }, (_, i) =>
+      reduceNumberDigits({ sumRecursively: true, stopNumbers: [11, 13, 14, 16, 19, 22] })(
+        this.expandedMentalPlaneLetterValues[i] +
+          this.expandedPhysicalPlaneLetterValues[i] +
+          this.expandedEmotionalPlaneLetterValues[i]
+      )
+    );
+
+    this.expandedDestinyNumber = Array.from({ length: this.yearExpansionLimit }, (_, i) =>
+      this.numberReducer(
+        this.expandedMentalPlaneLetterValues[i] +
+          this.expandedPhysicalPlaneLetterValues[i] +
+          this.expandedEmotionalPlaneLetterValues[i] +
+          this.expandedPersonalYears[i]
+      )
+    );
 
     const pinnacle = new PythagoreanPinnacle({ day, month, year });
     this.expandedRealizationNumbers = this.generateExpandedRealizationNumbers(pinnacle);
