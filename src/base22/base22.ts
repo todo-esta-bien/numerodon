@@ -135,7 +135,8 @@ export class Base22Profile {
     if (numbers.length === 1) return numbers[0];
 
     while (numbers.length > 1) {
-      numbers.sort((a, b) => a + b);
+      numbers.sort((a, b) => a - b);
+      numbers.reverse();
       const [first, second, ...rest] = numbers;
       const result = this.numberReducer(Math.abs(first - second));
       numbers = [result, ...rest];
