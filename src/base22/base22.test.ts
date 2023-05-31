@@ -153,4 +153,24 @@ describe("Base22Profile", () => {
 
     expect(profile.thirdSpiritualBaseA).toEqual(expected.thirdSpiritualBaseA);
   });
+
+  it.each([
+    {
+      numbers: [22, 11, 5],
+      expected: 6,
+    },
+    {
+      numbers: [2, 10, 6],
+      expected: 2,
+    },
+  ])("getResistanceNumber($numbers) == $expected", ({ numbers, expected }) => {
+    // Arrange
+    const profile = new Base22Profile({ day: 1, month: 1, year: 1 });
+
+    // Act
+    const result = profile["getResistanceNumber"](numbers);
+
+    // Assert
+    expect(result).toEqual(expected);
+  });
 });
