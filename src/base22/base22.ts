@@ -86,9 +86,7 @@ export class Base22Profile {
 
     this.spiritualSearch = this.numberReducer(this.reducedMonth + reducedDeepPersonality); // QS
 
-    const resistanceNumber = this.numberReducer(
-      Math.abs(Math.abs(this.reducedYear - this.reducedMonth) - this.reducedDay)
-    ); // NR
+    const resistanceNumber = this.getResistanceNumber([this.reducedYear, this.reducedMonth, this.reducedDay]); // NR
     this.resistanceNumber = resistanceNumber === 0 ? 22 : resistanceNumber;
     const reducedResistanceNumber = lastReducer(this.resistanceNumber);
 
@@ -130,5 +128,19 @@ export class Base22Profile {
     const reducedSecondSpiritualBaseC = lastReducer(this.secondSpiritualBaseC);
 
     this.thirdSpiritualBaseA = this.numberReducer(reducedSecondSpiritualBaseA + reducedSecondSpiritualBaseC); // 3A
+  }
+
+  private getResistanceNumber(numbers: number[]): number {
+    if (numbers.length === 0) return 0;
+    if (numbers.length === 1) return numbers[0];
+
+    while (numbers.length > 1) {
+      numbers.sort((a, b) => a + b);
+      const [first, second, ...rest] = numbers;
+      const result = this.numberReducer(Math.abs(first - second));
+      numbers = [result, ...rest];
+    }
+
+    return numbers[0];
   }
 }
