@@ -117,6 +117,42 @@ const base22TestCases: Base22ProfileTestCase[] = [
       thirdSpiritualBaseA: 10, // 3A
     },
   },
+  {
+    original: {
+      day: 22,
+      month: 11,
+      year: 1967,
+    },
+    expected: {
+      deepPersonality: 11, // PP
+      emotionalKnot: 9, // NE
+      emotionalSearch: 20, // QE
+      internalSocialBehavior: 33, // CIS
+      externalSocialBehavior: 16, // CES
+      externalSocialPersonality: 22, // PES
+      harmonySearch: 33, // RH
+      spiritualSearch: 22, // QS
+      resistanceNumber: 6, // NR
+
+      emerge: 10, // RS
+      painKnot: 17, // ND
+      internalDefenseBehavior: 11, // CID
+      externalDefenseBehavior: 6, // CED
+      externalDefensePersonality: 5, // PED
+      externalExitSearch: 6, // RE
+      escapeNumber: 1, // NF
+
+      firstSpiritualBaseA: 5, // 1A
+      firstSpiritualBaseB: 16, // 1B
+      firstSpiritualBaseC: 10, // 1C
+
+      secondSpiritualBaseA: 21, // 2A
+      secondSpiritualBaseB: 15, // 2B
+      secondSpiritualBaseC: 26, // 2C
+
+      thirdSpiritualBaseA: 11, // 3A
+    },
+  },
 ];
 
 describe("Base22Profile", () => {
@@ -161,6 +197,10 @@ describe("Base22Profile", () => {
     },
     {
       numbers: [2, 10, 6],
+      expected: 2,
+    },
+    {
+      numbers: [6, 2, 10],
       expected: 2,
     },
   ])("getResistanceNumber($numbers) == $expected", ({ numbers, expected }) => {
