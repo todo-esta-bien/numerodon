@@ -5,6 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "description": "Library to calculate numeric values from names or dates",
+  "engines": {
+    "node": ">=16"
+  },
   "scripts": {
     "build": "rollup -c",
     "build:force": "rm -rf dist && npm run build",
