@@ -50,6 +50,8 @@ export class DestinyTable {
   public readonly expandedPersonalYears: number[];
   public readonly expandedRealizationNumbers: string[];
 
+  public readonly expandedCrisisPeriods: number[];
+
   public readonly destinyTableSumOptions: ReduceNumberDigitsAttrs = {
     sumRecursively: true,
     stopNumbers: [11, 22],
@@ -116,6 +118,17 @@ export class DestinyTable {
 
     const pinnacle = new PythagoreanPinnacle({ day, month, year });
     this.expandedRealizationNumbers = this.generateExpandedRealizationNumbers(pinnacle);
+
+    this.expandedCrisisPeriods = this.generateCrisisPeriods(
+      `${names}${fatherLastNames}${motherLastNames}`.length,
+      this.yearExpansionLimit
+    );
+  }
+
+  private generateCrisisPeriods(nameLettersAmount: number, yearExpansionLimit: number): number[] {
+    const basePeriod: number = nameLettersAmount / 2;
+    const periodsAmount: number = Math.floor(yearExpansionLimit / basePeriod);
+    return Array.from({ length: periodsAmount }, (_, i) => Math.ceil(basePeriod * (i + 1)));
   }
 
   private generateExpandedRealizationNumbers(pinnacle: PythagoreanPinnacle): string[] {

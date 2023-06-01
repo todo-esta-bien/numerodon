@@ -44,6 +44,7 @@ const destinyTableTestCase: DestinyTableTestCase[] = [
       expandedRealizationNumbers: "9999999999".split(""),
       expandedSpiritualPlane: [9, 16, 16, 22, 22, 9, 6, 6, 6, 22],
       expandedDestinyNumber: [6, 5, 6, 4, 5, 11, 9, 1, 11, 1],
+      expandedCrisisPeriods: [10],
     },
   },
 ];
@@ -70,6 +71,7 @@ describe("Testing DestinyTable", () => {
     expect(destinyTable.expandedRealizationNumbers).toMatchObject(expected.expandedRealizationNumbers);
     expect(destinyTable.expandedSpiritualPlane).toMatchObject(expected.expandedSpiritualPlane);
     expect(destinyTable.expandedDestinyNumber).toMatchObject(expected.expandedDestinyNumber);
+    expect(destinyTable.expandedCrisisPeriods).toMatchObject(expected.expandedCrisisPeriods);
   });
 
   it.each([
@@ -218,4 +220,47 @@ describe("Testing DestinyTable", () => {
     // Assert
     expect(result).toMatchObject(expectedRealizationNumbers);
   });
+
+  it.each([
+    {
+      nameLettersAmount: 25,
+      yearExpansionLimit: 99,
+      expected: [13, 25, 38, 50, 63, 75, 88],
+    },
+    {
+      nameLettersAmount: 25,
+      yearExpansionLimit: 95,
+      expected: [13, 25, 38, 50, 63, 75, 88],
+    },
+    {
+      nameLettersAmount: 25,
+      yearExpansionLimit: 100,
+      expected: [13, 25, 38, 50, 63, 75, 88, 100],
+    },
+    {
+      nameLettersAmount: 20,
+      yearExpansionLimit: 99,
+      expected: [10, 20, 30, 40, 50, 60, 70, 80, 90],
+    },
+  ])(
+    "generateCrisisPeriods($nameLettersAmount, $yearExpansionLimit) == $expected",
+    ({ nameLettersAmount, yearExpansionLimit, expected }) => {
+      // Arrange
+      const destinyTable = new DestinyTable({
+        day: 7,
+        month: 11,
+        year: 1995,
+        names: "Jhocelyn",
+        fatherLastNames: "Cruz",
+        motherLastNames: "Espinosa",
+        yearExpansionLimit: 99,
+      });
+
+      // Act
+      const result = destinyTable["generateCrisisPeriods"](nameLettersAmount, yearExpansionLimit);
+
+      // Assert
+      expect(result).toMatchObject(expected);
+    }
+  );
 });
