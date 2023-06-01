@@ -5,6 +5,7 @@ import {
   generateExpandedNames,
   generateExpandedLetterCount,
   getLetterValue,
+  cleanString,
 } from "../utils";
 
 import { PythagoreanPinnacle } from "./pythagorean";
@@ -119,8 +120,9 @@ export class DestinyTable {
     const pinnacle = new PythagoreanPinnacle({ day, month, year });
     this.expandedRealizationNumbers = this.generateExpandedRealizationNumbers(pinnacle);
 
+    const completeName = `${names} ${fatherLastNames} ${motherLastNames}`;
     this.expandedCrisisPeriods = this.generateCrisisPeriods(
-      `${names}${fatherLastNames}${motherLastNames}`.length,
+      cleanString(completeName).replace(/\s/g, "").length,
       this.yearExpansionLimit
     );
   }
