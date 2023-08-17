@@ -55,6 +55,8 @@ export class Base22Profile {
     this.month = month;
     this.year = year;
 
+    // Delegating the presentation of the reduced number to the frontend
+    // so we're leaving potential numbers above 22
     const lastReducer = reduceNumberDigits({
       sumRecursively: false,
       stopNumbers: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
