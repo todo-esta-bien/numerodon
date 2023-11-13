@@ -190,3 +190,15 @@ export const generateExpandedLetterCount = (str: string[]): number[] => {
 
   return result;
 };
+
+export const getDaysInMonth = (year: number, month: number): number[] => {
+  const daysInMonth = [];
+  const startDate = new Date(year, month, 1);
+
+  while (startDate.getMonth() === month) {
+    daysInMonth.push(startDate.getDate());
+    startDate.setDate(startDate.getDate() + 1);
+  }
+
+  return daysInMonth;
+};
