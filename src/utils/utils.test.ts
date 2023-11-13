@@ -1,5 +1,6 @@
 import {
   getLetterValue,
+  getDaysInMonth,
   getLetterSumFromWord,
   reduceNumberDigits,
   type LetterSumResult,
@@ -165,5 +166,18 @@ describe("Testing generateExpandedLetterCount", () => {
 
     // Assert
     expect(result.join("")).toEqual(expected);
+  });
+});
+
+describe("Testing getDaysInMonth", () => {
+  it.each([
+    [2024, 10, new Array(30).fill(null).map((_, idx) => idx + 1)],
+    [2024, 11, new Array(31).fill(null).map((_, idx) => idx + 1)],
+  ])("%s/%s days", (year: number, month: number, expected: number[]) => {
+    // Act
+    const result: number[] = getDaysInMonth(year, month);
+
+    // Assert
+    expect(result).toEqual(expected);
   });
 });
