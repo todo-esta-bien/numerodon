@@ -73,7 +73,7 @@ export class PlannerProfile {
         };
       }
     );
-    const gridEndOffset = new Array(35 - (firstWeekDay + plannerCalculatedDays.length)).fill(null);
+    const gridEndOffset = new Array(Math.max(35 - (firstWeekDay + plannerCalculatedDays.length), 0)).fill(null);
 
     this.plannerDays = [...gridStartOffset, ...plannerCalculatedDays, ...gridEndOffset];
   }
